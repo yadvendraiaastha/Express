@@ -1,12 +1,21 @@
 const noteModel = require("../models/note");
+// const categoryModel = require("../controllers/categoryController");
+// const category = require("../models/category");
 
+ 
 const createNote = async (req,res) =>{
    // console.log(req.userId);
-    const {title, description} = req.body;
+    const {CatId,Todo,Inprogress,Done,StartOn,Duration} = req.body;
+    console.log(req.body);
 
     const newNote = new noteModel({
-        title : title,
-        description : description,
+        CatId : CatId,
+        Todo : Todo,
+        Inprogress : Inprogress,
+        Done : Done,
+        StartOn : StartOn,
+        Duration : Duration,
+        // EndOn : EndOn,
         userId : req.userId  
     });
 
@@ -19,6 +28,7 @@ const createNote = async (req,res) =>{
         res.status(500).json({message : "Something Went Wrong"});
     }
 }
+
 
 const updateNote = async (req,res) =>{
 

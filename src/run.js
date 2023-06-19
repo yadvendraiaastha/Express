@@ -1,26 +1,48 @@
 const express = require('express');
+const upload = require("express-fileupload");
+
 const app = express();
 
 const userRouter = require('./routes/userRoutes');
-const noteRouter = require('./routes/noteRoutes');
+const noteRouter = require('./routes/noteRoutes'); 
+
 //const dotenv = require("dotenv");
 const cors = require("cors");
 
 //dotenv.config();
 
 const mongoose = require("mongoose");
+const categoryRoute = require('./routes/categoryRoute');
 
 app.use(express.json());
 
 app.use(cors());
 
-app.use("/users",userRouter);
-app.use("/note",noteRouter)
+app.use(upload());
 
+
+app.use("/users",userRouter);
+app.use("/note",noteRouter);
+app.use("/category",categoryRoute);
+
+
+
+// app.get("/",(req,res) => {
+//     res.send('Task Manager');
+// });
 
 app.get("/",(req,res) => {
-    res.send('Task Manager');
+    res.sendFile(__dirname + "/index.html")
 });
+
+app.post("/",(req,res) => {
+    if(req.files)
+    {
+        console.log(req.files);
+    }
+});
+
+
 
 //const PORT = process.env.PORT || 3200;
 
